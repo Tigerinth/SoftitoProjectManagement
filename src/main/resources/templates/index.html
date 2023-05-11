@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>LoginPanel</title>
+    <title>Project Management Login</title>
 </head>
 <body>
+<h1>Login</h1>
 
+<form method="POST" th:action="@{/login}">
+    <label for="username">Kullanıcı Adı:</label>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="password">Parola:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <input type="submit" value="Kaydet">
+</form>
 </body>
 </html>

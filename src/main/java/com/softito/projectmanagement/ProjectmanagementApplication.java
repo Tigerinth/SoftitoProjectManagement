@@ -17,5 +17,6 @@ public class ProjectmanagementApplication {
 	* yeni projenin ilk ismini,açıklamasını ve mümkünse yöneticisini al
 	* projeye üye ekleme ve risk ekleme | fonksiyonel ve opsiyonel gereksinimler ekle
 	* en sona görev takibi zaman çizelgesi ve proje ilerlemesi yönetimini ekle
+	* fikirler; davet sistemi
 	 */
 }

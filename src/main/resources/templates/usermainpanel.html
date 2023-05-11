@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Ana Sayfa</title>
 </head>
 <body>
+<h1>Giris yapıldı hosgeldiniz anasayfa</h1>
+<p>mail: <span th:text="${email}"></span></p>
+<p>kullaniciadi: <span th:text="${username}"></span></p>
 
 </body>
 </html>
