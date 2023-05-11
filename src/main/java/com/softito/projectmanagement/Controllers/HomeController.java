@@ -41,4 +41,6 @@ public class HomeController {
     public String getRegister(){
         return "register";
     }
+    @GetMapping("/createproject")
+    public String createprojectpage(){return "createproject";}
 }

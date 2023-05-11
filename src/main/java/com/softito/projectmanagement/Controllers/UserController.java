@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.List;
+
 @Controller
 public class UserController {
     @Autowired
     UserRepositoryService userRepositoryService;
+    @Autowired
+    UserRepository userRepository;
     @Autowired
     ProjectRepository projectRepository;
 
@@ -82,16 +86,23 @@ public class UserController {
                                 String managerMail,
                                 @RequestParam("ProjectDesc") String projectDesc){
 
-        if (sessionid <= 0 || sessionid == null){
-            System.out.println("giris yapilmamis");
+        if (sessionid == null || sessionid <= 0) {
+            System.out.println("giriş yapılmamış");
             return "redirect:/register";
         }
-        //managerMail = User  BURADA KALDIM
+
+        User managerperson = userRepository.getById(sessionid);
+        managerMail = managerperson.getEmail();
         for(User user : userRepositoryService.getAll()){
-            if(user.getEmail().matches(managerMail) && user.getEmail().matches()){
-                System.out.println("böyle bir mail var");
+            if(user.getEmail().matches(managerMail)){
+                System.out.println("böyle bir mail yani kullanici var");
                 Project yeniproje = new Project(projectName,projectDesc,managerMail,true);
+                List<Project> projects = user.getProjects();
+                projects.add(yeniproje);
+                user.setProjects(projects);
                 projectRepository.save(yeniproje);
+                userRepository.save(user);
+                System.out.println("projeyi olusturdu");
                 return "redirect:/usermainpanel";
             }
         }
