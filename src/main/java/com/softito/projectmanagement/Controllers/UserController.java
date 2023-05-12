@@ -99,6 +99,7 @@ public class UserController {
                 Project yeniproje = new Project(projectName,projectDesc,managerMail,true);
                 List<Project> projects = user.getProjects();
                 projects.add(yeniproje);
+                yeniproje.setUser(managerperson);
                 user.setProjects(projects);
                 projectRepository.save(yeniproje);
                 userRepository.save(user);
