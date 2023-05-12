@@ -87,15 +87,15 @@ public class UserController {
                                 @RequestParam("ProjectDesc") String projectDesc){
 
         if (sessionid == null || sessionid <= 0) {
-            System.out.println("giriş yapılmamış");
-            return "redirect:/register";
+            System.out.println("giris yapilmamis");
+            return "redirect:/";
         }
 
         User managerperson = userRepository.getById(sessionid);
         managerMail = managerperson.getEmail();
         for(User user : userRepositoryService.getAll()){
             if(user.getEmail().matches(managerMail)){
-                System.out.println("böyle bir mail yani kullanici var");
+                System.out.println("boyle bir mail yani kullanici var");
                 Project yeniproje = new Project(projectName,projectDesc,managerMail,true);
                 List<Project> projects = user.getProjects();
                 projects.add(yeniproje);
@@ -103,7 +103,7 @@ public class UserController {
                 projectRepository.save(yeniproje);
                 userRepository.save(user);
                 System.out.println("projeyi olusturdu");
-                return "redirect:/usermainpanel";
+                return "redirect:/usermainpanel/user="+ managerperson.getUsername();
             }
         }
         System.out.println("mail bulunamadı");
