@@ -25,16 +25,20 @@ public class Project {
     @Column(name = "Project_Status")
     public boolean ProjectStatus;
 
+    @Column(name = "inviteid")
+    public String inviteid;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Project(String name,String projectDesc, String managermail,boolean projectStatus){
+    public Project(String name,String projectDesc, String managermail,String inviteid,boolean projectStatus){
         this.ProjectName = name;
         this.ProjectDesc = projectDesc;
         this.managerMail = managermail;
         this.ProjectStatus = projectStatus;
+        this.inviteid =inviteid;
     }
 
 

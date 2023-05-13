@@ -39,4 +39,9 @@ public class UserRepositoryService implements IRepositoryService<User> {
     public String update(Long id, User entity) {
         return null;
     }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 }

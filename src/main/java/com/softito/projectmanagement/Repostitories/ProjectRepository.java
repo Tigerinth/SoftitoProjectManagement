@@ -5,4 +5,5 @@ import com.softito.projectmanagement.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProjectRepository extends JpaRepository<Project,Long> {
+    Project findByinvitedid(String invitedid);
 }

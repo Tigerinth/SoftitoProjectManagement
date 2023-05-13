@@ -96,7 +96,12 @@ public class UserController {
         for(User user : userRepositoryService.getAll()){
             if(user.getEmail().matches(managerMail)){
                 System.out.println("boyle bir mail yani kullanici var");
-                Project yeniproje = new Project(projectName,projectDesc,managerMail,true);
+
+                //proje kimlik olusturma
+                BCryptPasswordEncoder idEncoder = new BCryptPasswordEncoder();
+                String encodedid = idEncoder.encode(user.getId().toString());
+
+                Project yeniproje = new Project(projectName,projectDesc,managerMail,encodedid,true);
                 List<Project> projects = user.getProjects();
                 projects.add(yeniproje);
                 yeniproje.setUser(managerperson);
@@ -118,6 +123,22 @@ public class UserController {
         model.addAttribute("managermail",project.getManagerMail());
         model.addAttribute("projectname",project.getProjectName());
         return "projectdetails";
+    }
+    @PostMapping("/invite")
+    public String inviteproject(Model model,@RequestParam("inviteid")String inviteid,@RequestParam("usermail")String usermail){
+        if (sessionid == null || sessionid <= 0) {
+            System.out.println("giris yapilmamis");
+            return "redirect:/";
+        }
+        User user = userRepository.getById(sessionid);
+        System.out.println(sessionid);
+        User inviteduser = userRepository.findByEmail(usermail);
+        Project project = projectRepository.findByinvitedid(inviteid);
+        List<Project> inviteduserprojects = inviteduser.getProjects();
+        inviteduserprojects.add(project);
+        inviteduser.setProjects(inviteduserprojects);
+        userRepository.save(inviteduser);
+        return "redirect:/usermainpanel/user="+user.getUsername();
     }
 
 }

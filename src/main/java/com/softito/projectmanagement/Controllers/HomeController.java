@@ -43,4 +43,6 @@ public class HomeController {
     }
     @GetMapping("/createproject")
     public String createprojectpage(){return "createproject";}
+    @GetMapping("/invite2project")
+    public String invitepage(){return  "invite";}
 }
