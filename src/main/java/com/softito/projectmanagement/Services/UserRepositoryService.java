@@ -40,8 +40,5 @@ public class UserRepositoryService implements IRepositoryService<User> {
         return null;
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
 
 }

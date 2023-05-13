@@ -14,19 +14,19 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Long Id;
+    private Long Id;
 
     @Column(name = "Project_Name")
-    public String ProjectName;
+    private String ProjectName;
     @Column(name = "Description")
-    public String ProjectDesc;
+    private String ProjectDesc;
     @Column(name = "Project_ManagerMail")
-    public String managerMail;
+    private String managerMail;
     @Column(name = "Project_Status")
-    public boolean ProjectStatus;
+    private boolean ProjectStatus;
 
     @Column(name = "inviteid")
-    public String inviteid;
+    private String inviteid;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

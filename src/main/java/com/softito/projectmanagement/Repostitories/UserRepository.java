@@ -8,11 +8,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,Long> {
-    User findByEmail(String email);
 
     //@Query("SELECT u FROM User u WHERE u.isDelete = false")
     //public List<User> getAllUsers();
 
-    //@Query("SELECT u FROM User u WHERE u.email = :email")
-    //public User findByEmail(@Param("email") String email);
+    @Query("SELECT u FROM User u WHERE u.email = :email")
+    public User findByEmail(@Param("email") String email);
+
 }

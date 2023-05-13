@@ -17,20 +17,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Long Id;
+    private Long Id;
 
     @Column(name = "Username")
-    public String Username;
+    private String Username;
 
-    public String role;
+    private String role;
     @Column(name = "email")
-    public String Email;
+    private String Email;
     @Column(name = "password")
-    public String Password;
+    private String Password;
     @Column(name = "Name")
-    public String FName;
+    private String FName;
     @Column(name = "Surname")
-    public String LName;
+    private String LName;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Project> projects = new ArrayList<>();

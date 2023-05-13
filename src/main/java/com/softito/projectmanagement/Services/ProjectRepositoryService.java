@@ -37,7 +37,5 @@ public class ProjectRepositoryService implements IRepositoryService<Project> {
     public String update(Long id, Project entity) {
         return null;
     }
-    public Project findByEmail(String invitedid) {
-        return projectRepository.findByinvitedid(invitedid);
-    }
+
 }

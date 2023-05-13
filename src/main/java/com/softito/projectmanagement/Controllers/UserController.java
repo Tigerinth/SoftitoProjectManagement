@@ -133,11 +133,13 @@ public class UserController {
         User user = userRepository.getById(sessionid);
         System.out.println(sessionid);
         User inviteduser = userRepository.findByEmail(usermail);
-        Project project = projectRepository.findByinvitedid(inviteid);
+        System.out.println("buldu davet edilen kullanici: " +inviteduser.getUsername());
+        Project project = projectRepository.findByInviteid(inviteid);
         List<Project> inviteduserprojects = inviteduser.getProjects();
         inviteduserprojects.add(project);
         inviteduser.setProjects(inviteduserprojects);
         userRepository.save(inviteduser);
+
         return "redirect:/usermainpanel/user="+user.getUsername();
     }
 
