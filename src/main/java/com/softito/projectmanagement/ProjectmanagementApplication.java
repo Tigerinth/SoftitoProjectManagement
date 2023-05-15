@@ -19,4 +19,7 @@ public class ProjectmanagementApplication {
 	* en sona görev takibi zaman çizelgesi ve proje ilerlemesi yönetimini ekle
 	* fikirler; davet sistemi
 	 */
+
+	//nerde kaldım ?
+	//02:54 14 mayıs şuan projeye davet oluyor kullanıcı ekleniyor kullanıcının dahil olduğu projeleri göstermeyi yap
 }

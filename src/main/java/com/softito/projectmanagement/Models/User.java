@@ -16,16 +16,16 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "Id")
     private Long Id;
 
     @Column(name = "Username")
     private String Username;
 
     private String role;
-    @Column(name = "email")
+    @Column(name = "Email")
     private String Email;
-    @Column(name = "password")
+    @Column(name = "Password")
     private String Password;
     @Column(name = "Name")
     private String FName;

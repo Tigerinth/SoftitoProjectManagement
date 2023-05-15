@@ -40,6 +40,8 @@ public class Project {
         this.ProjectStatus = projectStatus;
         this.inviteid =inviteid;
     }
+    public Project() {
+    }
 
 
 }

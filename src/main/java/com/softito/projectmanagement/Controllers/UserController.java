@@ -139,8 +139,22 @@ public class UserController {
         inviteduserprojects.add(project);
         inviteduser.setProjects(inviteduserprojects);
         userRepository.save(inviteduser);
-
         return "redirect:/usermainpanel/user="+user.getUsername();
+    }
+
+    @GetMapping("/user-projects")
+    public String showUserProjects(Model model) {
+        if (sessionid == null || sessionid <= 0) {
+            System.out.println("Giriş yapılmamış");
+            return "redirect:/";
+        }
+
+        User user = userRepository.getById(sessionid);
+        List<Project> userProjects = user.getProjects();
+
+        model.addAttribute("projects", userProjects);
+
+        return "userprojects";
     }
 
 }

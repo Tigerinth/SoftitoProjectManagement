@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>projeyedavetet</title>
+</head>
+<body>
+<form method="POST" th:action="@{/invite}">
+  <label for="inviteid">Invite ID:</label>
+  <input type="text" id= "inviteid" name="inviteid" required><br><br>
+  <label for="usermail">User Email:</label>
+  <input type="email" id="usermail" name="usermail" required><br><br>
+  <input type="submit" value="Invite User">
+</form>
+
+</body>
+</html>
