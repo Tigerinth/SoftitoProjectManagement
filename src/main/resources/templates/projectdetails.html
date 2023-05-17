@@ -7,12 +7,13 @@
 </head>
 <body>
 <div class="container">
-    <h2>Proje Detayları</h2>
+    <h2 style="text-align: center;">Proje Detayları</h2>
     <br>
     <br>
     <h2>Proje Adı: <span th:text="${projectname}"></span></h2>
     <h4>Açıklama: <p><span th:text="${projectdescription}"></span></p></h4>
     <h5>Yöentici Email: <span th:text="${managermail}"></span></h5>
+    <h5>Projenin Kimliği: <span th:text="${projectid}"></span></h5>
 
 
     <h6>Task List:  <a href="/addtask2project">
@@ -21,10 +22,12 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Task Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>Duration</th>
+            <th>Gorev Adı</th>
+            <th>Açıklama</th>
+            <th>Baslangıç tarihi</th>
+            <th>Süre (Gün)</th>
+            <th>Durumu</th>
+            <th>tamamla</th>
         </tr>
         </thead>
         <tbody>
@@ -33,6 +36,13 @@
             <td><p th:text="${task.taskDescription}"></p></td>
             <td th:text="${task.startDate}"></td>
             <td th:text="${task.durationDays}"></td>
+            <td>
+                <span th:if="${task.isCompleted}">Tamamlandı <p th:text ="'tamamlayan: ' + ${task.completedUser}"></p></span>
+                <span th:unless="${task.isCompleted}">Tamamlanmadı</span>
+            </td>
+            <td><a th:href="@{'/setcompletetask/' + ${task.id}}">
+                <button>tamamla</button>
+            </a></td>
         </tr>
         </tbody>
     </table>
@@ -56,6 +66,7 @@
                 <button>Sil</button>
             </a></td>
 
+
         </tr>
         </tbody>
     </table>
@@ -65,8 +76,8 @@
         <h3>Takım Üyeleri Listesi</h3>
         <thead>
         <tr>
-            <th>Username</th>
-            <th>Actions</th>
+            <th>Kullanıcı Adı </th>
+            <th>Aksiyon</th>
         </tr>
         </thead>
         <tbody>

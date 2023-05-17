@@ -24,21 +24,6 @@ public class HomeController {
         return "index";
     }
 
-    /*
-    @GetMapping("/usermainpanel/user={uname}")
-    public String userMainPanel(Model model, @PathVariable("uname") String username) {
-        User newuser = new User();
-        for (User user : userRepositoryService.getAll()) {
-            if (user.getUsername().equals(username)) {
-                sessionid = user.getId();
-                newuser = userRepository.getById(user.getId());
-            }
-        }
-        model.addAttribute("username", newuser.getUsername());
-        model.addAttribute("email",newuser.getEmail());
-        return "usermainpanel";
-    }*/
-
     @GetMapping("/notThisUserError")
     public String notthisusererrorpage(Model model){
         model.addAttribute("sessionid",sessionid);

@@ -6,6 +6,7 @@ import com.softito.projectmanagement.Models.Task;
 import com.softito.projectmanagement.Models.User;
 import com.softito.projectmanagement.Repostitories.ProjectRepository;
 import com.softito.projectmanagement.Repostitories.RiskRepository;
+import com.softito.projectmanagement.Repostitories.TaskRepository;
 import com.softito.projectmanagement.Repostitories.UserRepository;
 import com.softito.projectmanagement.Services.ProjectRepositoryService;
 import com.softito.projectmanagement.Services.UserRepositoryService;
@@ -36,6 +37,8 @@ public class UserController {
     ProjectRepositoryService projectRepositoryService;
     @Autowired
     RiskRepository riskRepository;
+    @Autowired
+    TaskRepository taskRepository;
 
     Long sessionid;
     Long selectedproject;
@@ -85,7 +88,9 @@ public class UserController {
 
     /*              REGISTER                */
     @PostMapping("/register")
-    public String userRegisterPost(Model model, RedirectAttributes redirAttrs, @RequestParam("lName") String lName, @RequestParam("fName") String fName, @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("confirmPassword") String confirmPassword,@RequestParam("username") String userName) {
+    public String userRegisterPost(Model model, RedirectAttributes redirAttrs, @RequestParam("lName") String lName, @RequestParam("fName") String fName,
+                                   @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("confirmPassword")
+                                       String confirmPassword,@RequestParam("username") String userName) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(password);
         if (password.equals(confirmPassword)) {
@@ -153,56 +158,8 @@ public class UserController {
         return "redirect:/usermainpanel";
     }
 
-    /*
-    @PostMapping("/invite")
-    public String inviteproject(Model model,@RequestParam("inviteid")String inviteid,@RequestParam("usermail")String usermail){
-        if (sessionid == null || sessionid <= 0) {
-            System.out.println("giris yapilmamis");
-            return "redirect:/";
-        }
-        User user = userRepository.getById(sessionid);
-        System.out.println(sessionid);
-        User inviteduser = userRepository.findByEmail(usermail);
-        System.out.println("buldu davet edilen kullanici: " +inviteduser.getUsername());
-        Project project = projectRepository.findByInviteid(inviteid);
-        System.out.println("bahsi geçen proje: "+ project.getProjectName());
-        List<Project> inviteduserprojects = inviteduser.getProjects();
-        try {
-            inviteduserprojects.add(project);
-            inviteduser.setProjects(inviteduserprojects);
-            userRepository.save(inviteduser);
-            System.out.println("basarili");
-        } catch (Exception e) {
-            System.out.println("Proje eklenirken bir hata oluştu: " + e.getMessage());
-            // Hata durumuna göre yapılacak işlemler
-            // Örneğin, hata mesajını kullanıcıya göstermek için bir hata sayfasına yönlendirme yapabilirsiniz.
-            return "redirect:/error";
-        }
-        return "redirect:/usermainpanel/user="+user.getUsername();
-    }
-    */
 
 
-
-    @GetMapping("/user-projects")
-    public String showUserProjects(Model model) {
-        if (sessionid == null || sessionid <= 0) {
-            System.out.println("Giriş yapılmamış");
-            return "redirect:/";
-        }
-
-        User user = userRepository.getById(sessionid);
-        List<Project> userProjects = user.getProjects();
-        for (Project project : userProjects) {
-            System.out.println("Proje Adı: " + project.getProjectName());
-            System.out.println("Açıklama: " + project.getProjectDesc());
-            System.out.println("-----");
-        }
-
-        model.addAttribute("projects", userProjects);
-
-        return "userprojects";
-    }
 
 
     @PostMapping("/createproject")
@@ -293,6 +250,7 @@ public class UserController {
         selectedproject = project.getId();
         System.out.println(selectedproject + " id li proje secildi");
         model.addAttribute("projectdescription", project.getProjectDesc());
+        model.addAttribute("projectid",project.getId());
         model.addAttribute("managermail", project.getManagerMail());
         model.addAttribute("loggedmail", loggeduser.getEmail());
         model.addAttribute("projectname", project.getProjectName());
@@ -314,11 +272,11 @@ public class UserController {
                           @RequestParam("taskName") String taskName,
                           @RequestParam("taskDescription") String taskDescription,
                           @RequestParam("taskDuration") int taskDuration) {
-
+        User loggeduser = userRepository.getById(sessionid);
         Project project = projectRepository.getById(selectedproject);
         if (project == null) {
             System.out.println("Hatalı proje kimliği");
-            return "redirect:/";
+            return "redirect:/usermainpanel/user=" + loggeduser.getUsername();
         }
         System.out.println("secilen proje: "+project.getProjectName());
         Task newTask = new Task(taskName, taskDescription, taskDuration,false);
@@ -333,17 +291,14 @@ public class UserController {
     public String addRiskToProject(@RequestParam("projectId") Long projectId,
                                    @RequestParam("managerMail") String managerMail,
                                    @RequestParam("riskDescription") String riskDescription) {
-        // Giriş yapılmış kullanıcının oturum bilgilerini kontrol et
         if (sessionid == null || sessionid <= 0) {
             System.out.println("Giriş yapılmamış");
             return "redirect:/";
         }
 
-        // Proje ve kullanıcıyı veritabanından al
         User loggedUser = userRepository.getById(sessionid);
         Project project = projectRepository.getById(projectId);
 
-        // Kullanıcının proje yöneticisi olup olmadığını kontrol et
         if (!loggedUser.getEmail().equals(managerMail)) {
             System.out.println("Kullanıcı proje yöneticisi değil");
             return "redirect:/";
@@ -358,7 +313,7 @@ public class UserController {
         projectRepository.save(project);
 
         System.out.println("Risk başarıyla eklendi.");
-        return "redirect:/project/" + projectId;
+        return "redirect:/projectdetails/project="+project.getId();
     }
     @GetMapping("/deleterisk/{riskIndex}")
     public String deleteRiskFromProject(@PathVariable Long riskIndex) {
@@ -392,6 +347,10 @@ public class UserController {
 
         if (loggedUser.getEmail().equals(project.getManagerMail())) {
             // Proje yöneticisi, takım üyesini silebilir
+            if(userToDelete.getUsername().equals(loggedUser.getUsername())){
+                System.out.println("kendini silemezssin");
+                return "redirect:/projectdetails/project=" + selectedproject;
+            }
             project.getUsers().remove(userToDelete);
             projectRepository.save(project);
             System.out.println("Takım üyesi başarıyla silindi.");
@@ -401,6 +360,34 @@ public class UserController {
 
         return "redirect:/projectdetails/project=" + selectedproject;
     }
-
+    @GetMapping("/setcompletetask/{taskid}")
+    public String setcompletetask(Model model,@PathVariable("taskid")Long taskid){
+        if (sessionid == null || sessionid <= 0) {
+            System.out.println("Giriş yapılmamış");
+            return "redirect:/";
+        }
+        Task selectedtask = taskRepository.getById(taskid);
+        User loggeduser = userRepository.getById(sessionid);
+        Project project = projectRepository.getById(selectedproject);
+        if(selectedtask.isCompleted()){
+            System.out.println("zaten tamamlanmis");
+            return "redirect:/projectdetails/project=" + selectedproject;
+        }
+        selectedtask.setCompleted(true);
+        selectedtask.setCompletedUser(loggeduser.getUsername());
+        taskRepository.save(selectedtask);
+        projectRepository.save(project);
+        System.out.println("görev tamamlandı");
+        return "redirect:/projectdetails/project=" + selectedproject;
+    }
+    @GetMapping("/taskremainingdays/task={taskId}")
+    public String getTaskRemainingDays(Model model, @PathVariable("taskId") Long taskId) {
+        Task task = taskRepository.getById(taskId);
+        Project project = projectRepository.getById(selectedproject);
+        int remainingDays = project.getRemainingDaysForTask(task);
+        System.out.println(remainingDays);
+        model.addAttribute("remainingDays", remainingDays);
+        return "redirect:/projectdetails/project=" + selectedproject;
+    }
 
 }

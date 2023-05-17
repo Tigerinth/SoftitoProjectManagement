@@ -2,19 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Proje Oluştur</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
-<form action="/createproject" method="post">
-    <label for="ProjectName">Proje Adı:</label><br>
-    <input type="text" id="ProjectName" name="ProjectName"><br>
-    <label for="ProjectDesc">Proje Açıklaması:</label><br>
-    <input type="text" id="ProjectDesc" name="ProjectDesc"><br>
-    <label for="managerMail">Yonetici mail:</label><br>
-    <input type="text" id="managerMail" name="managerMail"><br>
-    <button type="submit">Proje Oluştur</button>
-</form>
-
+<div class="container">
+    <h2 class="text-center">Proje Oluştur</h2>
+    <form action="/createproject" method="post">
+        <div class="form-group">
+            <label for="ProjectName">Proje Adı:</label>
+            <input type="text" id="ProjectName" name="ProjectName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="ProjectDesc">Proje Açıklaması:</label>
+            <input type="text" id="ProjectDesc" name="ProjectDesc" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="managerMail">Yönetici mail:</label>
+            <input type="text" id="managerMail" name="managerMail" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Proje Oluştur</button>
+    </form>
+</div>
 </body>
 </html>

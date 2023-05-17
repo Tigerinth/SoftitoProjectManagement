@@ -33,6 +33,9 @@ public class Task {
     @Column(name = "isCompleted")
     private boolean isCompleted;
 
+    @Column(name = "completeduser")
+    private String completedUser;
+
     // Diğer özellikler ve ilişkiler
 
     public Task(String taskName, String taskDescription,int durationDays,boolean iscompleted) {
@@ -41,6 +44,7 @@ public class Task {
         this.durationDays = durationDays;
         this.isCompleted = iscompleted;
         this.startDate = LocalDate.now();
+        this.completedUser = "";
     }
 
     public Task() {

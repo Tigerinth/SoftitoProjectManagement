@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>User Projects</title>
+    <title>Ana Sayfa</title>
     <style>
         body {
             display: flex;
@@ -47,7 +47,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>User Projects</h1>
+    <h2>Projeleriniz</h2>
     <ul class="project-list">
         <!-- Kullanıcının projelerini döngü ile listele -->
         <tr th:each="project : ${projects}">
@@ -68,12 +68,11 @@
 </div>
 
 <div style="margin-left: auto; margin-right: 20px;">
-    <!-- GetMapping yapacağınız butonlar -->
     <a href="/createproject">
         <button class="project-button">Yeni Proje Oluştur</button>
     </a>
     <a href="/add2project">
-        <button class="project-button">Var Olan Projeye Üye Ekle</button>
+        <button class="project-button">Var Olan Projenize Üye Ekle</button>
     </a>
     <a href="/">
         <button class="project-button">Çıkış Yap</button>
