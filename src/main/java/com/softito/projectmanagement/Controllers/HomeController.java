@@ -23,6 +23,8 @@ public class HomeController {
     public String loginPanel() {
         return "index";
     }
+
+    /*
     @GetMapping("/usermainpanel/user={uname}")
     public String userMainPanel(Model model, @PathVariable("uname") String username) {
         User newuser = new User();
@@ -34,8 +36,13 @@ public class HomeController {
         }
         model.addAttribute("username", newuser.getUsername());
         model.addAttribute("email",newuser.getEmail());
-        
         return "usermainpanel";
+    }*/
+
+    @GetMapping("/notThisUserError")
+    public String notthisusererrorpage(Model model){
+        model.addAttribute("sessionid",sessionid);
+        return "notThisUserError";
     }
     @GetMapping("/register")
     public String getRegister(){
@@ -45,4 +52,10 @@ public class HomeController {
     public String createprojectpage(){return "createproject";}
     @GetMapping("/invite2project")
     public String invitepage(){return  "invite";}
+    @GetMapping("/add2project")
+    public String inviteuserpage(){return  "adduser";}
+    @GetMapping("/addtask2project")
+    public String addtaskpage() {return "addtasktoproject";}
+    @GetMapping("/addrisk")
+    public String addRiskpage() {return "addrisk";}
 }

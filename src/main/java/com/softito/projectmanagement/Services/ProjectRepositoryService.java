@@ -20,7 +20,9 @@ public class ProjectRepositoryService implements IRepositoryService<Project> {
 
     @Override
     public List<Project> getAll() {
-        return null;
+
+        return projectRepository.findAll();
+        //return projectRepository.getAllUsers();
     }
 
     @Override

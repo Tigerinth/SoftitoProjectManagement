@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Project Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
+    <h2>Proje Detayları</h2>
+    <br>
+    <br>
+    <h2>Proje Adı: <span th:text="${projectname}"></span></h2>
+    <h4>Açıklama: <p><span th:text="${projectdescription}"></span></p></h4>
+    <h5>Yöentici Email: <span th:text="${managermail}"></span></h5>
 
+
+    <h6>Task List:  <a href="/addtask2project">
+        <br><button class="project-button">görev ekle</button>
+    </a></h6>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Task Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>Duration</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasklist}">
+            <td th:text="${task.taskName}"></td>
+            <td><p th:text="${task.taskDescription}"></p></td>
+            <td th:text="${task.startDate}"></td>
+            <td th:text="${task.durationDays}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h5>Riskler:
+        <a href="/addrisk">
+        <br><button class="project-button">Risk ekle</button>
+    </a></h5>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Risk ID</th>
+            <th>Açıklaması</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="risk : ${risklist}">
+            <td th:text="${risk.id}"></td>
+            <td th:text="${risk.description}"></td>
+            <td><a th:href="@{'/deleterisk/' + ${risk.id}}">
+                <button>Sil</button>
+            </a></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+    <table>
+        <h3>Takım Üyeleri Listesi</h3>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${projectusers}">
+            <td th:text="${user.username}"></td>
+            <td>
+                <a th:if="${showDeleteButtons}" th:href="@{'/deleteteamuser/' + ${user.id}}">Sil</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
 </body>
 </html>

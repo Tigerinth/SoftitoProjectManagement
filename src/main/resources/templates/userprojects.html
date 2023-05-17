@@ -37,36 +37,24 @@
         .project-button:hover {
             background-color: #45a049;
         }
-
-        .welcome-text {
-            text-align: center;
-            margin-top: 100px;
-            font-size: 24px;
-        }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>User Projects</h1>
     <ul class="project-list">
-        <!-- Kullanıcının projelerini döngü ile listele -->
         <tr th:each="project : ${projects}">
             <li>
                 <span th:text="${project.ProjectName}"></span>
                 <a th:href="@{/projectdetails/project={projectId}(projectId=${project.id})}">
-                    <button class="project-button">Go to Project</button>
+                <button class="project-button">Go to Project</button>
                 </a>
             </li>
         </tr>
     </ul>
 </div>
 
-<div class="welcome-text">
-    <h2>Hoş Geldiniz Anasayfa</h2>
-    <p>mail: <span th:text="${email}"></span></p>
-    <p>kullaniciadi: <span th:text="${username}"></span></p>
-</div>
-
+</a>
 <div style="margin-left: auto; margin-right: 20px;">
     <!-- GetMapping yapacağınız butonlar -->
     <a href="/createproject">
@@ -75,8 +63,8 @@
     <a href="/add2project">
         <button class="project-button">Var Olan Projeye Üye Ekle</button>
     </a>
-    <a href="/">
-        <button class="project-button">Çıkış Yap</button>
+    <a href="/addtask2project">
+        <button class="project-button">Projeye göreve ekle</button>
     </a>
 </div>
 

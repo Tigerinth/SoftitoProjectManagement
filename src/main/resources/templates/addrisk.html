@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Risk</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>Add Risk</h1>
+  <form method="POST" th:action="@{/addrisk}">
+    <div class="form-group">
+      <label for="projectId">Proje ID</label>
+      <input type="text" class="form-control" id="projectId" name="projectId" required>
+    </div>
+    <div class="form-group">
+      <label for="managerMail">doğrualamak için yönetici maili:</label>
+      <input type="text" class="form-control" id="managerMail" name="managerMail" required>
+    </div>
+
+    <div class="form-group">
+      <label for="riskDescription">Risk Description:</label>
+      <input type="text" class="form-control" id="riskDescription" name="riskDescription" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Risk</button>
+  </form>
+</div>
+</body>
+</html>

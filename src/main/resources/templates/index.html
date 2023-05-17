@@ -3,17 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>Project Management Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            width: 400px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+        }
+
+        .login-container form {
+            margin-top: 20px;
+        }
+
+        .login-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .login-container a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1>Login</h1>
+<div class="login-container">
+    <h1>Login</h1>
 
-<form method="POST" th:action="@{/login}">
-    <label for="username">Kullanıcı Adı:</label>
-    <input type="text" id="username" name="username" required><br><br>
+    <form method="POST" th:action="@{/login}">
+        <p th:text="${error}"></p>
+        <label for="username">Kullanıcı Adı:</label>
+        <input type="text" id="username" name="username" required><br><br>
 
-    <label for="password">Parola:</label>
-    <input type="password" id="password" name="password" required><br><br>
-    <input type="submit" value="Kaydet">
-</form>
+        <label for="password">Parola:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="submit" value="Giris">
+    </form>
+
+    <a href="/register">
+        <button class="btn btn-secondary">Kayıt Ol</button>
+    </a>
+</div>
 </body>
 </html>

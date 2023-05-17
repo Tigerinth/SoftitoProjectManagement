@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kullanıcıyı Projeye Ekle</title>
+</head>
+<body>
+<h2>Kullanıcıyı Projeye Ekle</h2>
+<form method="POST" th:action="@{/adduser}">
+    <label for="projectId">Proje Kimliği:</label>
+    <input type="number" id="projectId" name="projectId" required><br><br>
+
+    <label for="managerMail">Yönetici E-Posta Adresi:</label>
+    <input type="email" id="managerMail" name="managerMail" required><br><br>
+
+    <label for="userMail">Kullanıcı E-Posta Adresi:</label>
+    <input type="email" id="userMail" name="userMail" required><br><br>
+
+    <input type="submit" value="Kullanıcıyı Ekle">
+</form>
+</body>
+</html>

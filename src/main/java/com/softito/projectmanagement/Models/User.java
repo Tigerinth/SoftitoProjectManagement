@@ -32,8 +32,11 @@ public class User {
     @Column(name = "Surname")
     private String LName;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Project> projects = new ArrayList<>();
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //private List<Project> projects = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "users")
+    private List<Project> projects;
 
     public User(String email, String fName, String lName, String password,String username) {
         this.Email = email;

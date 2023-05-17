@@ -2,29 +2,79 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Project Management Registeration Page</title>
+    <title>Project Management Registration Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<h1>Yeni Kullanıcı Oluştur</h1>
+<div class="container">
+    <h1>Yeni Kullanıcı Oluştur</h1>
 
-<form method="POST" th:action="@{/register}">
-    <label for="fName">Adı:</label>
-    <input type="text" id="fName" name="fName" required><br><br>
+    <form method="POST" th:action="@{/register}">
+        <label for="fName">Adı:</label>
+        <input type="text" id="fName" name="fName" required><br>
 
-    <label for="lName">Soyadı:</label>
-    <input type="text" id="lName" name="lName" required><br><br>
-    <label for="username">Kullanıcı Adı:</label>
-    <input type="text" id="username" name="username" required><br><br>
+        <label for="lName">Soyadı:</label>
+        <input type="text" id="lName" name="lName" required><br>
 
-    <label for="email">E-posta Adresi:</label>
-    <input type="email" id="email" name="email" required><br><br>
+        <label for="username">Kullanıcı Adı:</label>
+        <input type="text" id="username" name="username" required><br>
 
-    <label for="password">Parola:</label>
-    <input type="password" id="password" name="password" required><br><br>
+        <label for="email">E-posta Adresi:</label>
+        <input type="email" id="email" name="email" required><br>
 
-    <label for="confirmPassword">Parola Tekrarı:</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
-    <input type="submit" value="Kaydet">
-</form>
+        <label for="password">Parola:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="confirmPassword">Parola Tekrarı:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+
+        <input type="submit" value="Kaydet">
+    </form>
+</div>
 </body>
 </html>
